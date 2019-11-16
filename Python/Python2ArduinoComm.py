@@ -1,18 +1,20 @@
 
 import serial   
 
+UNVALID_COM_NUM = -666
+
 class ArduinoSerialController:
     def __init__(self,Serialcom_number,baud_rate=9600):
         print("init")
         self.com_number = Serialcom_number
         self.baud_rate = baud_rate
-        self.arduino_serial = 666
+        self.arduino_serial = UNVALID_COM_NUM
         try:
             #Create Serial port object called arduinoSerialData
             self.arduino_serial = serial.Serial(self.com_number,self.baud_rate)
             print(self.arduino_serial.readline()) 
         except:
-            self.arduino_serial = 666
+            self.arduino_serial = UNVALID_COM_NUM
             print("init failed")
             raise AssertionError("Init failed")
             
@@ -38,7 +40,7 @@ class ArduinoSerialController:
         """
         print(self.com_number)
 
-        if self.arduino_serial == 666:
+        if self.arduino_serial == UNVALID_COM_NUM:
             print("no valid serila connection!")
             exit
 
